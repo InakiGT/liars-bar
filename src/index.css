@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --main-color: #e3c567;
+  --main-bg: #1a1a2e;
+  --shadow: #0f0f17;
+  --cian: #00eaff;
+}
+
+html {
+  font-family: "Pixelify Sans", sans-serif;
+}
+
+body {
+  background-color: var(--main-bg);
+  color: var(--main-color);
+}

@@ -1,0 +1,190 @@
+nav {
+  text-align: center;
+  color: white;
+  box-shadow: 0px 10px 5px -7px var(--shadow);
+  padding: 5px 0 5px 0;
+  margin-bottom: 20px;
+  z-index: 20000;
+}
+
+button {
+  font-weight: bold;
+  text-decoration: uppercase;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: #f4f4f4;
+  border: none;
+  transition: .1s all ease-in;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
+
+.effect {
+  background-color: transparent;
+}
+
+.effect::after {
+  content: "";
+  background-image: url(https://www.gariany.com/2020/05/ffmpeg-make-a-crt-scan-lines-filter/scanline_pattern_croped.png);
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  opacity: 0.5;
+  pointer-events: none;
+
+  animation: scanlines 30s linear infinite;
+}
+
+@keyframes scanlines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+
+
+.main-container {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.pixel-border {
+  box-shadow:
+    -5px 0 0 var(--cian), /* Borde izquierdo */
+    5px 0 0 var(--cian),  /* Borde derecho */
+    0 -5px 0 var(--cian), /* Borde superior */
+    0 5px 0 var(--cian),  /* Borde inferior */
+    -2px -2px 0 var(--cian), /* Esquina superior izquierda */
+    2px -2px 0 var(--cian),  /* Esquina superior derecha */
+    -2px 2px 0 var(--cian),  /* Esquina inferior izquierda */
+    2px 2px 0 var(--cian);   /* Esquina inferior derecha */
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card {
+  padding: 20px 30px;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+
+  h3 {
+    margin: 0;
+    margin-bottom: 16px;
+    font-size: 26px;
+  }
+
+  p {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .hp {
+    width: 1000px;
+    background-color: var(--main-color);
+  }
+
+  .icon {
+    width: 20px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.playground-container {
+  display: grid;
+  grid-template-rows: 13fr 2fr;
+  gap: 15px;
+}
+
+.questions {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 40px;
+
+  div {
+    display: flex;
+    gap: 20px
+  }
+}
+
+.btn {
+  background-color: var(--cian);
+}
+
+.right-btn {
+  background-color: #00ff7f;
+}
+
+.wrong-btn {
+  background-color: #ff3131;
+}
+
+.status {
+  padding: 20px;
+  font-size: 20px;
+}
+
+.selected {
+  transform: scale(1.1);
+}
+
+@keyframes show-keys {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes hide-keys {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}
+
+.answer {
+  transform: scaleY(0);
+}
+
+.show {
+  animation: show-keys .5s forwards;
+}
+
+.hide {
+  animation: hide-keys .2s forwards;
+}
+
+.summary {
+  font-size: 30px;
+  text-align: center;
+}
+
+.loser {
+  color: #ff3131;
+}
