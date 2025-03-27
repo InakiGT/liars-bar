@@ -188,3 +188,49 @@ button:hover {
 .loser {
   color: #ff3131;
 }
+
+.crosshair {
+  cursor: url(crosshair_efab094690-2.png) 8 8, crosshair;
+}
+
+.modal {
+  background-color: var(--main-bg);
+  color: white;
+  width: 60%;
+  text-align: center;
+  padding: 30px;
+  box-shadow:
+  -5px 0 0 white, /* Borde izquierdo */
+  5px 0 0 white,  /* Borde derecho */
+  0 -5px 0 white, /* Borde superior */
+  0 5px 0 white,  /* Borde inferior */
+  -2px -2px 0 white, /* Esquina superior izquierda */
+  2px -2px 0 white,  /* Esquina superior derecha */
+  -2px 2px 0 white,  /* Esquina inferior izquierda */
+  2px 2px 0 white;
+  z-index: 100;
+
+  &::after {
+    content: "";
+    background-image: url(https://www.gariany.com/2020/05/ffmpeg-make-a-crt-scan-lines-filter/scanline_pattern_croped.png);
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    opacity: 0.5;
+    pointer-events: none;
+
+    animation: scanlines 30s linear infinite;
+  }
+
+  h3 {
+    font-size: 40px;
+  }
+
+  p {
+    font-size: 30px;
+  }
+}

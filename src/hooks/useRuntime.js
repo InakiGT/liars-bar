@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState } from 'react'
+import { questions } from '../utils/questions'
 
 function useRuntime() {
-  const [ runtime, setRuntime ] = useState({
+  const base = {
     turn: 0,
     state: '',
     currentQuestion: null,
@@ -9,6 +10,10 @@ function useRuntime() {
     damageTo: 0,
     finished: false,
     await: false,
+    activeBonus: [],
+    damageBonus: 0,
+    bonusInfo: { title: '', effect: '' },
+    questions: [ ...questions ],
     teams: [
       {
         id: 1,
@@ -31,9 +36,10 @@ function useRuntime() {
         combo: 0,
       },
     ]
-  })
+  }
+  const [ runtime, setRuntime ] = useState({ ...base })
 
-  return [ runtime, setRuntime ]
+  return [ runtime, setRuntime, base ]
 }
 
 export default useRuntime

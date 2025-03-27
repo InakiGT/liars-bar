@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { getQuestion } from '../helpers/questionActions'
+import { getBonus } from '../helpers/bonusActions'
 
 function Questions({ rt: [ runtime, setRuntime ] }) {
   const DAMAGE = 20
+  const IS_COMBO = 1
 
   const [ show, setShow ] = useState(true)
   const [dots, setDots] = useState('')
@@ -38,7 +40,7 @@ function Questions({ rt: [ runtime, setRuntime ] }) {
   })
 
   const newQuestion = () => {
-    const question = getQuestion()
+    const question = getQuestion(runtime.questions)
 
     if ( question ) {
       setRuntime(prev => ({
@@ -54,8 +56,31 @@ function Questions({ rt: [ runtime, setRuntime ] }) {
   }
 
   const isRight = () => {
+
+    const teams = runtime.teams.map(team => {
+      if ( team.id === runtime.selectedTeam ) {
+        ++team.combo
+
+        if ( team.combo === IS_COMBO ) {
+          const bonus = getBonus()
+          bonus.func([ runtime, setRuntime ])
+
+          setRuntime(prev =>({
+            ...prev,
+            bonusInfo: { title: bonus.title, effect: bonus.effect  },
+            activeBonus: [ ...prev.activeBonus, bonus.times > 1 || bonus.times === -1 ? bonus : null ]
+          }))
+
+          team.combo = 0
+        }
+
+      }
+      return team
+    })
+
     setRuntime(prev => ({
       ...prefab(prev),
+      teams: [ ...teams ],
       selectedTeam: prev.selectedTeam,
       state: 'Atacando',
       await: true,
@@ -85,7 +110,7 @@ function Questions({ rt: [ runtime, setRuntime ] }) {
       if ( runtime.damageTo ) {
         const teams = runtime.teams.map(team => {
           if ( runtime.damageTo === team.id ) {
-            team.life -= DAMAGE
+            team.life -= ( DAMAGE + runtime.damageBonus )
           }
 
           return team
@@ -93,8 +118,9 @@ function Questions({ rt: [ runtime, setRuntime ] }) {
 
         setRuntime(prev => ({
           ...prefab(prev),
-          tems: [ ...teams ],
+          teams: [ ...teams ],
           damageTo: 0,
+          damageBonus: 0,
           await: false,
         }))
 
@@ -103,6 +129,7 @@ function Questions({ rt: [ runtime, setRuntime ] }) {
       }
 
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ runtime.await, runtime.damageTo ])
 
   return (

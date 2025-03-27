@@ -1,6 +1,4 @@
-import { questions } from '../utils/questions'
-
-export function getQuestion() {
+export function getQuestion (questions) {
   const index = Math.floor(Math.random() * questions.length)
   const removed = questions.splice(index, 1)[0]
 

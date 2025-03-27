@@ -15,7 +15,7 @@ function Card({ player, rt: [ runtime, setRuntime ] }) {
   }
 
   return (
-    <article className={`pixel-border card ${ runtime.selectedTeam === player.id || runtime.damageTo === player.id ? 'selected' : null }`} onClick={ selectTeam }>
+    <article className={`pixel-border card ${ runtime.selectedTeam === player.id || runtime.damageTo === player.id ? 'selected' : null } ${ runtime.state === 'Atacando' && 'crosshair' }`} onClick={ selectTeam }>
       <h3>Equipo { player.id }</h3>
       <div>
         <p>Vida: { player.life } HP</p>
